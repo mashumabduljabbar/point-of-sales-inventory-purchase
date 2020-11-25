@@ -1,0 +1,20 @@
+menu report print pdf
+
+Laporan Penjualan
+Laporan Pembelian
+Laporan Barang Masuk
+Laporan Barang Keluar
+Stock Card
+Laporan Stock Opname
+Laporan Pengiriman Barang
+
+Print PDF
+
+RFQ Sales
+Sales Order
+RFQ PO
+Puechase Order
+Delivery Order/Surat Jalan
+
+
+

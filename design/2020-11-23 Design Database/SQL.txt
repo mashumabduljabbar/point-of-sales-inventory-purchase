@@ -1,0 +1,154 @@
+CREATE TABLE tbl_kategori
+(
+  id_kategori INT NOT NULL,
+  nama_kategori VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id_kategori)
+);
+
+CREATE TABLE tbl_unit
+(
+  id_unit INT NOT NULL,
+  nama_unit VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id_unit)
+);
+
+CREATE TABLE tbl_brand
+(
+  id_brand INT NOT NULL,
+  nama_brand VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id_brand)
+);
+
+CREATE TABLE tbl_supplier
+(
+  id_supplier INT NOT NULL,
+  nama_supplier VARCHAR(50) NOT NULL,
+  npwp_supplier VARCHAR(20) NOT NULL,
+  alamat_supplier VARCHAR(255) NOT NULL,
+  no_telp_supplier VARCHAR(20) NOT NULL,
+  email_supplier VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id_supplier)
+);
+
+CREATE TABLE tbl_customer
+(
+  id_customer INT NOT NULL,
+  nama_customer VARCHAR(50) NOT NULL,
+  npwp_customer VARCHAR(20) NOT NULL,
+  alamat_customer VARCHAR(255) NOT NULL,
+  no_telp_customer VARCHAR(20) NOT NULL,
+  email_customer VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id_customer)
+);
+
+CREATE TABLE tbl_perusahaan
+(
+  id_perusahaan INT NOT NULL,
+  nama_perusahaan VARCHAR(50) NOT NULL,
+  npwp_perusahaan VARCHAR(20) NOT NULL,
+  alamat_perusahaan VARCHAR(255) NOT NULL,
+  no_telp_perusahaan VARCHAR(20) NOT NULL,
+  email_perusahaan VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id_perusahaan)
+);
+
+CREATE TABLE tbl_user
+(
+  id_user INT NOT NULL,
+  nama_user VARCHAR(50) NOT NULL,
+  username VARCHAR(50) NOT NULL,
+  password VARCHAR(50) NOT NULL,
+  jabatan_user VARCHAR(50) NOT NULL,
+  alamat_user VARCHAR(255) NOT NULL,
+  no_telp_user VARCHAR(20) NOT NULL,
+  email_user VARCHAR(50) NOT NULL,
+  PRIMARY KEY (id_user),
+  UNIQUE INDEX (username)
+);
+
+CREATE TABLE tbl_rfq
+(
+  id_rfq INT NOT NULL,
+  tanggal_rfq DATE NOT NULL,
+  alamat_pengiriman_rfq VARCHAR(255) NOT NULL,
+  tax_rfq INT NOT NULL,
+  disc_rfq INT NOT NULL,
+  jenis_rfq INT NOT NULL,
+  id_supplier INT NOT NULL,
+  id_user INT NOT NULL,
+  id_perusahaan INT NOT NULL,
+  id_customer INT NOT NULL,
+  PRIMARY KEY (id_rfq),
+  FOREIGN KEY (id_supplier) REFERENCES tbl_supplier(id_supplier),
+  FOREIGN KEY (id_user) REFERENCES tbl_user(id_user),
+  FOREIGN KEY (id_perusahaan) REFERENCES tbl_perusahaan(id_perusahaan),
+  FOREIGN KEY (id_customer) REFERENCES tbl_customer(id_customer)
+);
+
+CREATE TABLE tbl_po
+(
+  id_po INT NOT NULL,
+  tanggal_po DATE NOT NULL,
+  alamat_pengiriman_po VARCHAR(255) NOT NULL,
+  disc_po INT NOT NULL,
+  tax_po INT NOT NULL,
+  status_po INT NOT NULL,
+  id_rfq INT NOT NULL,
+  id_user INT NOT NULL,
+  PRIMARY KEY (id_po),
+  FOREIGN KEY (id_rfq) REFERENCES tbl_rfq(id_rfq),
+  FOREIGN KEY (id_user) REFERENCES tbl_user(id_user)
+);
+
+CREATE TABLE tbl_warehouse
+(
+  id_warehouse INT NOT NULL,
+  tanggal_warehouse DATE NOT NULL,
+  id_po INT NOT NULL,
+  id_user INT NOT NULL,
+  PRIMARY KEY (id_warehouse),
+  FOREIGN KEY (id_po) REFERENCES tbl_po(id_po),
+  FOREIGN KEY (id_user) REFERENCES tbl_user(id_user)
+);
+
+CREATE TABLE tbl_produk
+(
+  id_produk INT NOT NULL,
+  nama_produk VARCHAR(50) NOT NULL,
+  size_produk VARCHAR(50) NOT NULL,
+  cost_produk INT NOT NULL,
+  price_produk INT NOT NULL,
+  alert_quantity INT NOT NULL,
+  image_produk VARCHAR(50) NOT NULL,
+  id_kategori INT NOT NULL,
+  id_unit INT NOT NULL,
+  id_brand INT NOT NULL,
+  PRIMARY KEY (id_produk),
+  FOREIGN KEY (id_kategori) REFERENCES tbl_kategori(id_kategori),
+  FOREIGN KEY (id_unit) REFERENCES tbl_unit(id_unit),
+  FOREIGN KEY (id_brand) REFERENCES tbl_brand(id_brand)
+);
+
+CREATE TABLE tbl_rfq_detail
+(
+  id_rfq_detail INT NOT NULL,
+  harga_rfq_detail INT NOT NULL,
+  qty_rfq_detail INT NOT NULL,
+  id_rfq INT NOT NULL,
+  id_produk INT NOT NULL,
+  PRIMARY KEY (id_rfq_detail),
+  FOREIGN KEY (id_rfq) REFERENCES tbl_rfq(id_rfq),
+  FOREIGN KEY (id_produk) REFERENCES tbl_produk(id_produk)
+);
+
+CREATE TABLE tbl_po_detail
+(
+  id_po_detail INT NOT NULL,
+  qty_po_detail INT NOT NULL,
+  harga_po_detail INT NOT NULL,
+  id_po INT NOT NULL,
+  id_produk INT NOT NULL,
+  PRIMARY KEY (id_po_detail),
+  FOREIGN KEY (id_po) REFERENCES tbl_po(id_po),
+  FOREIGN KEY (id_produk) REFERENCES tbl_produk(id_produk)
+);
