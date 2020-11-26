@@ -30,7 +30,7 @@
 	</td>
 	<td style="text-align:right; padding:15px; font-size:18px; font-weight:bold;" width="15%">
 		<?php 
-		$id_user = $this->session->userdata("userid");
+		$id_user = $this->session->userdata("id_user");
 		$user = $this->db->query("select * from tbl_user where id_user='$id_user'")->row();
 		echo $user->nama_user;
 		?>

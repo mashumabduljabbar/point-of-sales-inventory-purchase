@@ -1,7 +1,7 @@
   <div class="content-wrapper ">
     <section class="content-header">
       <h3>
-        Data Inventaris Labor
+        RFQ Sales
       </h3>
     </section>
     <!-- Main content -->
@@ -13,10 +13,7 @@
 				<div class="box-header">
 					<h3 class="box-title">
 					<label>
-					<a class="btn-sm btn-primary" href="<?php echo base_url("admin/inventaris_tambah");?>"><i class="fa fa-plus"></i> <span>Tambah Inventaris</span></a>
-					</label>
-					<label>
-					<a class="btn-sm btn-success" href="<?php echo base_url("admin/kategori");?>"><i class="fa fa-gears"></i> <span>Kategori</span></a>
+					<a class="btn-sm btn-primary" href="<?php echo base_url("rfqsales/rfq_tambah");?>"><i class="fa fa-plus"></i> <span>Tambah RFQ</span></a>
 					</label>
 					</h3>
 				</div>
@@ -24,11 +21,13 @@
 				<table id="datatable" class="table table-bordered table-striped display responsive nowrap" cellspacing="0" width="100%">
 					<thead>
 					<tr>
-						<th>No</th>
-						<th>ID Inventaris</th>
-						<th>Nama Inventaris</th>
-						<th>Kategori</th>
-						<th>Ketersediaan</th>
+						<th>ID RFQ</th>
+						<th>Tanggal</th>
+						<th>Nama Customer</th>
+						<th>Sub Total</th>
+						<th>Discount</th>
+						<th>Tax</th>
+						<th>Total</th>
 						<th width="150px"> Action</th>
 					</tr>
 					</thead>
@@ -54,17 +53,17 @@ var myTable =  $('#datatable').DataTable({
 			"paging": true,
 			"info": true,
 			'order': [[0, 'asc']],
-			"ajax": "<?php echo base_url('admin/get_data_master_inventaris/');?>" ,
+			"ajax": "<?php echo base_url('rfqsales/get_data_master_rfq/');?>" ,
 			columnDefs: [{
-				   targets: [5],
+				   targets: [7],
 				   data: null,
 				   render: function ( data, type, row, meta ) {                   
-					return "<a href='<?php echo base_url();?>admin/inventaris_ubah/"+row[0]+"'> <button type='button' class='btn btn-xs btn-warning'><i class='fa fa-pencil'></i> Ubah</button></a> <a onclick=\"return confirm('Yakin untuk menghapus Inventaris ini ?')\" href='<?php echo base_url();?>admin/inventaris_aksi_hapus/"+row[0]+"'> <button type='button' class='btn btn-xs btn-danger'><i class='fa fa-trash'></i> Hapus</button></a>";
+					return "<a  title='Detail' href='<?php echo base_url();?>rfqsales/rfq_detail/"+row[7]+"'> <button type='button' class='btn btn-xs btn-info'><i class='fa fa-eye'></i> </button></a> <a  title='Ubah' href='<?php echo base_url();?>rfqsales/rfq_ubah/"+row[7]+"'> <button type='button' class='btn btn-xs btn-warning'><i class='fa fa-pencil'></i> </button></a> <a title='Hapus' onclick=\"return confirm('Yakin untuk menghapus rfq ini ?')\" href='<?php echo base_url();?>rfqsales/rfq_aksi_hapus/"+row[7]+"'> <button type='button' class='btn btn-xs btn-danger'><i class='fa fa-trash'></i> </button></a>";
 				   }
 				},],
 		});
 		
 setInterval( function () {
     myTable.ajax.reload();
-}, 4000 );
+}, 8000 );
 </script>

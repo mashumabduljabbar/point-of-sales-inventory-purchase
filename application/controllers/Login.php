@@ -33,8 +33,9 @@ class Login extends CI_Controller {
 		if($checking > 0){
 			foreach ($checking as $apps) {
 				$data_session = array(
-					'userid' => $apps->id_user,
+					'id_user' => $apps->id_user,
 					'username' => $apps->username,
+					'nama_user' => $apps->nama_user,
 					'status' => "login"
 					);
 	 

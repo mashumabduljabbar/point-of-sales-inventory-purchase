@@ -130,4 +130,8 @@ class Produk extends CI_Controller {
 			$this->m_general->hapus("tbl_produk", $where); // Panggil fungsi hapus() yang ada di m_general.php
 			redirect('produk');
 	}
+	public function tbl_produk(){
+		$tbl_produk = $this->db->query("select * from tbl_produk order by nama_produk ASC")->result_array();
+		echo json_encode($tbl_produk);
+	}
 }
