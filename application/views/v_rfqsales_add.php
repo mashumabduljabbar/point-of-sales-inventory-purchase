@@ -145,7 +145,7 @@
 	   document.getElementById("harga_rfq_detail"+nomore).value = "";
 	   document.getElementById("qty_rfq_detail"+nomore).value = "";
 	   document.getElementById("disc_rfq_detail"+nomore).value = "";
-	   $("#akun_navision"+nomore).empty();
+	   $("#id_produk"+nomore).empty();
        $("#tambahproduklainnyadiv"+nomore).hide();
 	   nomore--;	
 	   document.getElementById( 'idhapusnilai' ).value = nomore;

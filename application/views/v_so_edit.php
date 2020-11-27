@@ -1,7 +1,7 @@
   <div class="content-wrapper" >
     <section class="content-header">
       <h3>
-        Ubah RFQ
+        Ubah SO
       </h3>
     </section>
  <!-- Main content -->
@@ -16,21 +16,25 @@
 				</div>
 				<div class="box-body">
 				  <div class="row">
-					<?php echo form_open_multipart("rfqsales/rfq_aksi_ubah/".$tbl_rfq->id_rfq); ?>
+					<?php echo form_open_multipart("so/so_aksi_ubah/".$tbl_po->id_po); ?>
 					<div class="col-md-4">
 					  <div class="form-group">
-						<label>Customer</label>
-						<select name="id_customer" class="form-control select2" data-placeholder="Pilih Customer" required >
-							<option value="<?php echo $tbl_customer_by->id_customer;?>"><?php echo $tbl_customer_by->nama_customer;?></option>
-							<?php foreach($tbl_customer as $customer){?>
-							<option value="<?php echo $customer->id_customer;?>"><?php echo $customer->nama_customer;?></option>
+						<label>RFQ</label>
+						<select name="id_rfq" class="form-control" data-placeholder="Pilih RFQ" onchange="location = '<?php echo base_url();?>so/so_ubah/'+this.value;" required >
+							<?php if($this->uri->segment(4)!=''){
+								echo "<option value='$tbl_rfq_by->id_rfq'>$tbl_rfq_by->nama_customer</option>";
+							}else{
+								echo "<option>Pilih RFQ</option>";
+							} ?>
+							<?php foreach($tbl_rfq as $rfq){?>
+								<option value="<?php echo $rfq->id_rfq;?>"><?php echo $rfq->nama_customer;?></option>
 							<?php } ?>
 						</select>
 					  </div>
 					  <div class="form-group">
 						<label>Tax</label>
-						<select name="tax_rfq" class="form-control select2" data-placeholder="Pilih Tax" required >
-							<option value="<?php echo $tbl_rfq->tax_rfq;?>"><?php echo $tbl_rfq->tax_rfq;?>%</option>
+						<select name="tax_po" class="form-control select2" data-placeholder="Pilih Tax" required >
+							<option value="<?php echo $tbl_po->tax_po;?>"><?php echo $tbl_po->tax_po;?>%</option>
 							<option value="0">Tanpa Tax</option>
 							<option value="5">5%</option>
 							<option value="10">10%</option>
@@ -41,13 +45,13 @@
 					  
 					  <div class="form-group">
 						<label>Alamat Pengiriman</label>
-						<textarea class="form-control" rows="4" name="alamat_pengiriman_rfq" placeholder="Alamat Pengiriman"><?php echo $tbl_rfq->alamat_pengiriman_rfq;?></textarea>
+						<textarea class="form-control" rows="4" name="alamat_pengiriman_po" placeholder="Alamat Pengiriman"><?php echo $tbl_po->alamat_pengiriman_po;?></textarea>
 					  </div>
 					</div>
 					<div class="col-md-4">
 					  <div class="form-group">
 						<label>Tanggal</label>
-						<input type="date" class="form-control" name="tanggal_rfq" value="<?php echo $tbl_rfq->tanggal_rfq;?>">
+						<input type="date" class="form-control" name="tanggal_po" value="<?php echo $tbl_po->tanggal_po;?>">
 					  </div>
 					  <div class="form-group">
 						<label>Petugas</label>
@@ -74,51 +78,53 @@
 										</tr>
 									</thead>
 									<tbody>
-										<?php
-									$x=1;
-									foreach($tbl_rfq_detail as $detail){ ?>
-									<tr id='tambahproduklainnyadiv<?php echo $x;?>' >
-										<input type="hidden" name="id_rfq_detail[]" value="<?php echo $detail->id_rfq_detail;?>" >
-										<td>
-											<select data-placeholder='Jenis Biaya' class='form-control' id='id_produk<?php echo $x;?>' name='id_produk[]' style='width: 100%;' >
-													<option value='<?php echo $detail->id_produk;?>'> <?php echo $detail->nama_produk;?></option>
-											</select>
-										</td>
-										<td>
-											<input type="number" class="form-control" id='harga_rfq_detail<?php echo $x;?>' name="harga_rfq_detail[]" placeholder="Harga" value="<?php echo $detail->harga_rfq_detail;?>">
-										</td>
-										<td>
-											<input type="number" class="form-control" id='qty_rfq_detail<?php echo $x;?>' name="qty_rfq_detail[]" placeholder="Qty" value="<?php echo $detail->qty_rfq_detail;?>">
-										</td>
-										<td>
-											<input type="number" class="form-control" id='disc_rfq_detail<?php echo $x;?>' name="disc_rfq_detail[]" placeholder="Discount" value="<?php echo $detail->disc_rfq_detail;?>">
-										</td>
-									</tr>
-									<?php $x++; }?>
-									
-										<?php 									
-										for($y=0; $y<(30+$x); $y++){
-											echo "
-											<tr id='tambahproduklainnyadiv$y' style='display:none'>
-												<td>
-												<div class='form-group'><select data-placeholder='Nama Produk' class='form-control' id='id_produk$y' name='id_produk[]' style='width: 100%;' >
-													<option value=''> Nama Produk</option>
-												</select></div>
-												</td>
-												<td><div class='form-group'><input type='number' id='harga_rfq_detail$y' name='harga_rfq_detail[]' class='form-control' placeholder='Harga'></div></td>
-												<td><div class='form-group'><input type='number' id='qty_rfq_detail$y' name='qty_rfq_detail[]' class='form-control' placeholder='Qty'></div></td>
-												<td><div class='form-group'><input type='number' id='disc_rfq_detail$y' name='disc_rfq_detail[]' class='form-control' placeholder='Discount'></div></td>
-											</tr>
-											";
+										<?php 
+										if($this->uri->segment(4)!=''){
+											$x=1;
+											foreach($tbl_po_detail as $detail){ ?>
+												<tr id='tambahproduklainnyadiv<?php echo $x;?>' >
+													<td>
+														<select data-placeholder='Jenis Biaya' class='form-control' id='id_produk<?php echo $x;?>' name='id_produk[]' style='width: 100%;' >
+																<option value='<?php echo $detail->id_produk;?>'> <?php echo $detail->nama_produk;?></option>
+														</select>
+													</td>
+													<td>
+														<input type="number" class="form-control" id="harga_po_detail<?php echo $x;?>" name="harga_po_detail[]" placeholder="Harga" value="<?php echo $detail->harga_po_detail;?>">
+													</td>
+													<td>
+														<input type="number" class="form-control" id="qty_po_detail<?php echo $x;?>" name="qty_po_detail[]" placeholder="Qty" value="<?php echo $detail->qty_po_detail;?>">
+													</td>
+													<td>
+														<input type="number" class="form-control" id="disc_po_detail<?php echo $x;?>" name="disc_po_detail[]" placeholder="Discount" value="<?php echo $detail->disc_po_detail;?>">
+													</td>
+												</tr>
+											<?php $x++; }
+											
+											for($y=0; $y<(30+$x); $y++){
+												echo "
+												<tr id='tambahproduklainnyadiv$y' style='display:none'>
+													<td>
+													<div class='form-group'><select data-placeholder='Nama Produk' class='form-control' id='id_produk$y' name='id_produk[]' style='width: 100%;' >
+														<option value=''> Nama Produk</option>
+													</select></div>
+													</td>
+													<td><div class='form-group'><input type='number' id='harga_po_detail$y' name='harga_po_detail[]' class='form-control' placeholder='Harga'></div></td>
+													<td><div class='form-group'><input type='number' id='qty_po_detail$y' name='qty_po_detail[]' class='form-control' placeholder='Qty'></div></td>
+													<td><div class='form-group'><input type='number' id='disc_po_detail$y' name='disc_po_detail[]' class='form-control' placeholder='Discount'></div></td>
+												</tr>
+												";
+											}
 										}
 									?>
 									</tbody>
 								</table>
+								<?php if($this->uri->segment(4)!=''){ ?>
 								<div class="form-group">
 									<label><button id="tambahproduk"  type="button" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i> Tambah Produk</button></label>
 									<label><button id="hapusproduk"  type="button" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Hapus Produk</button></label> 
 									<input id="idhapusnilai" type="hidden" value="<?php echo $x-1;?>">
 								</div>
+								<?php } ?>
 					</div>
 					<div class="col-md-12">
 					  <div class="form-group">
@@ -137,6 +143,7 @@
 <script type="text/javascript">
 	$("#tambahproduk").click(function(){
 	var numb = $("#idhapusnilai").val();
+	$("#tambahproduklainnyadiv0").show();	
 	$("#hapusproduk").show();
 	numb++;	
 	
@@ -157,17 +164,16 @@
 	
 	$("#hapusproduk").click(function() {
 	   var nomore = $("#idhapusnilai").val();
-	   document.getElementById("harga_rfq_detail"+nomore).value = "";
-	   document.getElementById("qty_rfq_detail"+nomore).value = "";
-	   document.getElementById("disc_rfq_detail"+nomore).value = "";
+	   document.getElementById("harga_po_detail"+nomore).value = "";
+	   document.getElementById("qty_po_detail"+nomore).value = "";
+	   document.getElementById("disc_po_detail"+nomore).value = "";
 	   $("#id_produk"+nomore).empty();
        $("#tambahproduklainnyadiv"+nomore).hide();
 	   nomore--;	
 	   document.getElementById( 'idhapusnilai' ).value = nomore;
 	   if(nomore<1){
-			$("#hapusproduk").hide();	
+			$("#hapusproduk").hide();
 	   }
     });
-
 //////////////////////////////////////////////////////////////////////
 </script>

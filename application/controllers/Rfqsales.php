@@ -68,13 +68,7 @@ class Rfqsales extends CI_Controller {
             SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns)
         );
 	}	
-	
-	public function rfq()
-    {
-		$this->load->view("v_admin_header");
-        $this->load->view("v_rfqsales");
-        $this->load->view("v_admin_footer");
-    }		
+			
 	public function rfq_tambah()
     {
 		$data['tbl_supplier'] = $this->m_general->view_order("tbl_supplier", $order ="nama_supplier ASC");
@@ -217,9 +211,8 @@ where a.id_rfq='$id_rfq' order by id_rfq_detail ASC")->result();
 		$this->load->view('v_rfqsales_detail', $data);
 		$this->load->view("v_admin_footer");
 	}
-	public function rfq_hapus_detail($id_rfq_detail, $id_rfq){
-			$where['id_rfq_detail'] = $id_rfq_detail;
-			$this->m_general->hapus("tbl_rfq_detail", $where); // Panggil fungsi hapus() yang ada di m_general.php
-			redirect("rfqsales/rfq_ubah/$id_rfq");
+	public function json($id_rfq){
+		$tbl_rfq = $this->db->query("select * from tbl_rfq where id_rfq='$id_rfq'")->result_array();
+		echo json_encode($tbl_rfq);
 	}
 }
