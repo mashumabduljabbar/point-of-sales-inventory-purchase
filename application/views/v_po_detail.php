@@ -8,12 +8,12 @@
 					<div class="box-body">
 					  <div class="row">
 						<div class="col-md-12">
-							<h3 style="text-align:center;">Sales Order</h3>
+							<h3 style="text-align:center;">Purchase Order</h3>
 						</div>
 						<div class="col-md-6">
 							<div class="box-body"  style="border:1px solid #F4F4F4;">
 								<table class="table-condensed">
-									<tr><td width="130px">Nomor</td><td width="20px">:</td><td><?php echo "SO-".$tbl_po->id_po;?></td></tr>
+									<tr><td width="130px">Nomor</td><td width="20px">:</td><td><?php echo "PO-".$tbl_po->id_po;?></td></tr>
 								</table>
 							</div>
 						</div>
@@ -41,22 +41,22 @@
 						<div class="col-md-6">
 							<div class="box-body"  style="border:1px solid #F4F4F4;">
 								<table class="table-condensed">
-									<tr><td width="130px">Pengirim</td><td width="20px">:</td><td><b><?php echo $tbl_perusahaan_by->nama_perusahaan;?></b></td></tr>
-									<tr><td>Alamat</td><td width="20px">:</td><td><?php echo $tbl_perusahaan_by->alamat_perusahaan;?></td></tr>
-									<tr><td>NPWP</td><td width="20px">:</td><td><?php echo $tbl_perusahaan_by->npwp_perusahaan;?></td></tr>
-									<tr><td>No.Telp</td><td width="20px">:</td><td><?php echo $tbl_perusahaan_by->no_telp_perusahaan;?></td></tr>
-									<tr><td>Email</td><td width="20px">:</td><td><?php echo $tbl_perusahaan_by->email_perusahaan;?></td></tr>
+									<tr><td width="130px">Pengirim</td><td width="20px">:</td><td><b><?php echo $tbl_supplier_by->nama_supplier;?></b></td></tr>
+									<tr><td>Alamat</td><td width="20px">:</td><td><?php echo $tbl_supplier_by->alamat_supplier;?></td></tr>
+									<tr><td>NPWP</td><td width="20px">:</td><td><?php echo $tbl_supplier_by->npwp_supplier;?></td></tr>
+									<tr><td>No.Telp</td><td width="20px">:</td><td><?php echo $tbl_supplier_by->no_telp_supplier;?></td></tr>
+									<tr><td>Email</td><td width="20px">:</td><td><?php echo $tbl_supplier_by->email_supplier;?></td></tr>
 								</table>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="box-body"  style="border:1px solid #F4F4F4;">
 								<table class="table-condensed">
-									<tr><td width="130px">Penerima</td><td width="20px">:</td><td><b><?php echo $tbl_customer_by->nama_customer;?></b></td></tr>
-									<tr><td>Alamat</td><td width="20px">:</td><td><?php echo $tbl_customer_by->alamat_customer;?></td></tr>
-									<tr><td>NPWP</td><td width="20px">:</td><td><?php echo $tbl_customer_by->npwp_customer;?></td></tr>
-									<tr><td>No.Telp</td><td width="20px">:</td><td><?php echo $tbl_customer_by->no_telp_customer;?></td></tr>
-									<tr><td>Email</td><td width="20px">:</td><td><?php echo $tbl_customer_by->email_customer;?></td></tr>
+									<tr><td width="130px">Penerima</td><td width="20px">:</td><td><b><?php echo $tbl_perusahaan_by->nama_perusahaan;?></b></td></tr>
+									<tr><td>Alamat</td><td width="20px">:</td><td><?php echo $tbl_perusahaan_by->alamat_perusahaan;?></td></tr>
+									<tr><td>NPWP</td><td width="20px">:</td><td><?php echo $tbl_perusahaan_by->npwp_perusahaan;?></td></tr>
+									<tr><td>No.Telp</td><td width="20px">:</td><td><?php echo $tbl_perusahaan_by->no_telp_perusahaan;?></td></tr>
+									<tr><td>Email</td><td width="20px">:</td><td><?php echo $tbl_perusahaan_by->email_perusahaan;?></td></tr>
 								</table>
 							</div>
 						</div>

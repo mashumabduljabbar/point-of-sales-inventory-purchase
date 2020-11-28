@@ -86,6 +86,19 @@
   if(strpos($geturl, "so")!== FALSE){
 	  $so = "active";
 	  $sales = "active";
+  }  
+  
+  $rfqpurchase = "";
+  $po = "";
+  $purchase = "";
+  
+  if(strpos($geturl, "rfqpurchase")!== FALSE){
+	  $rfqpurchase = "active";
+	  $purchase = "active";
+  }
+  if(strpos($geturl, "po")!== FALSE){
+	  $po = "active";
+	  $purchase = "active";
   }
   
   ?>
@@ -163,6 +176,26 @@
             <li class="<?php echo $so;?>">
 				<a href="<?php echo base_url(); ?>so">
 					<i class="fa fa-circle-o"></i> SO
+				</a>
+			</li>
+          </ul>
+		</li>
+		<li class="<?php echo $purchase;?> treeview">
+          <a href="#">
+            <i class="fa  fa-shopping-cart"></i> <span>Purchase</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="<?php echo $rfqpurchase;?>">
+				<a href="<?php echo base_url(); ?>rfqpurchase">
+					<i class="fa fa-circle-o"></i> RFQ
+				</a>
+			</li>
+            <li class="<?php echo $po;?>">
+				<a href="<?php echo base_url(); ?>po">
+					<i class="fa fa-circle-o"></i> PO
 				</a>
 			</li>
           </ul>
