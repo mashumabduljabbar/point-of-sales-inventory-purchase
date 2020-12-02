@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `tbl_customer` (
   PRIMARY KEY (`id_customer`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table pos.tbl_customer: ~1 rows (approximately)
+-- Dumping data for table pos.tbl_customer: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tbl_customer` DISABLE KEYS */;
 INSERT INTO `tbl_customer` (`id_customer`, `nama_customer`, `npwp_customer`, `alamat_customer`, `no_telp_customer`, `email_customer`) VALUES
 	(1, 'PT DEF', '12345', 'Alamat', '123', 'customer@example.com');
@@ -93,18 +93,16 @@ CREATE TABLE IF NOT EXISTS `tbl_po` (
   `id_rfq` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   PRIMARY KEY (`id_po`),
-  KEY `id_rfq` (`id_rfq`),
-  KEY `id_user` (`id_user`),
-  CONSTRAINT `tbl_po_ibfk_1` FOREIGN KEY (`id_rfq`) REFERENCES `tbl_rfq` (`id_rfq`),
-  CONSTRAINT `tbl_po_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `tbl_user` (`id_user`)
+  KEY `tbl_po_ibfk_1` (`id_rfq`),
+  KEY `tbl_po_ibfk_2` (`id_user`),
+  CONSTRAINT `tbl_po_ibfk_1` FOREIGN KEY (`id_rfq`) REFERENCES `tbl_rfq` (`id_rfq`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tbl_po_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `tbl_user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table pos.tbl_po: ~1 rows (approximately)
+-- Dumping data for table pos.tbl_po: ~2 rows (approximately)
 /*!40000 ALTER TABLE `tbl_po` DISABLE KEYS */;
 INSERT INTO `tbl_po` (`id_po`, `tanggal_po`, `alamat_pengiriman_po`, `tax_po`, `status_po`, `id_rfq`, `id_user`) VALUES
-	(1, '2020-11-27', 'Alamat777777777777777', 10, 0, 1, 1);
-INSERT INTO `tbl_po` (`id_po`, `tanggal_po`, `alamat_pengiriman_po`, `tax_po`, `status_po`, `id_rfq`, `id_user`) VALUES
-	(2, '2020-11-28', 'Testsssss', 5, 0, 2, 1);
+	(1, '2020-12-02', 'Test', 0, 0, 1, 1);
 /*!40000 ALTER TABLE `tbl_po` ENABLE KEYS */;
 
 
@@ -117,22 +115,18 @@ CREATE TABLE IF NOT EXISTS `tbl_po_detail` (
   `id_po` int(11) NOT NULL,
   `id_produk` int(11) NOT NULL,
   PRIMARY KEY (`id_po_detail`),
-  KEY `id_po` (`id_po`),
-  KEY `id_produk` (`id_produk`),
-  CONSTRAINT `tbl_po_detail_ibfk_1` FOREIGN KEY (`id_po`) REFERENCES `tbl_po` (`id_po`),
-  CONSTRAINT `tbl_po_detail_ibfk_2` FOREIGN KEY (`id_produk`) REFERENCES `tbl_produk` (`id_produk`)
+  KEY `tbl_po_detail_ibfk_1` (`id_po`),
+  KEY `tbl_po_detail_ibfk_2` (`id_produk`),
+  CONSTRAINT `tbl_po_detail_ibfk_1` FOREIGN KEY (`id_po`) REFERENCES `tbl_po` (`id_po`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tbl_po_detail_ibfk_2` FOREIGN KEY (`id_produk`) REFERENCES `tbl_produk` (`id_produk`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table pos.tbl_po_detail: ~2 rows (approximately)
+-- Dumping data for table pos.tbl_po_detail: ~4 rows (approximately)
 /*!40000 ALTER TABLE `tbl_po_detail` DISABLE KEYS */;
 INSERT INTO `tbl_po_detail` (`id_po_detail`, `harga_po_detail`, `qty_po_detail`, `disc_po_detail`, `id_po`, `id_produk`) VALUES
-	(1, 10000, 5, 10, 1, 2);
+	(1, 11, 25, 0, 1, 2);
 INSERT INTO `tbl_po_detail` (`id_po_detail`, `harga_po_detail`, `qty_po_detail`, `disc_po_detail`, `id_po`, `id_produk`) VALUES
-	(2, 123, 7, 7, 1, 1);
-INSERT INTO `tbl_po_detail` (`id_po_detail`, `harga_po_detail`, `qty_po_detail`, `disc_po_detail`, `id_po`, `id_produk`) VALUES
-	(3, 123, 2, 5, 2, 1);
-INSERT INTO `tbl_po_detail` (`id_po_detail`, `harga_po_detail`, `qty_po_detail`, `disc_po_detail`, `id_po`, `id_produk`) VALUES
-	(4, 450, 2, 0, 2, 2);
+	(2, 12, 12, 0, 1, 2);
 /*!40000 ALTER TABLE `tbl_po_detail` ENABLE KEYS */;
 
 
@@ -149,12 +143,12 @@ CREATE TABLE IF NOT EXISTS `tbl_produk` (
   `id_unit` int(11) NOT NULL,
   `id_brand` int(11) NOT NULL,
   PRIMARY KEY (`id_produk`),
-  KEY `id_kategori` (`id_kategori`),
-  KEY `id_unit` (`id_unit`),
-  KEY `id_brand` (`id_brand`),
-  CONSTRAINT `tbl_produk_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `tbl_kategori` (`id_kategori`),
-  CONSTRAINT `tbl_produk_ibfk_2` FOREIGN KEY (`id_unit`) REFERENCES `tbl_unit` (`id_unit`),
-  CONSTRAINT `tbl_produk_ibfk_3` FOREIGN KEY (`id_brand`) REFERENCES `tbl_brand` (`id_brand`)
+  KEY `tbl_produk_ibfk_1` (`id_kategori`),
+  KEY `tbl_produk_ibfk_2` (`id_unit`),
+  KEY `tbl_produk_ibfk_3` (`id_brand`),
+  CONSTRAINT `tbl_produk_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `tbl_kategori` (`id_kategori`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tbl_produk_ibfk_2` FOREIGN KEY (`id_unit`) REFERENCES `tbl_unit` (`id_unit`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tbl_produk_ibfk_3` FOREIGN KEY (`id_brand`) REFERENCES `tbl_brand` (`id_brand`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table pos.tbl_produk: ~2 rows (approximately)
@@ -163,6 +157,8 @@ INSERT INTO `tbl_produk` (`id_produk`, `nama_produk`, `size_produk`, `cost_produ
 	(1, 'TV', '41 inch', 1000000, 5000000, 10, '1606247953a462f8c334e328ba8f572ca0a51c4861.jpg', 1, 1, 1);
 INSERT INTO `tbl_produk` (`id_produk`, `nama_produk`, `size_produk`, `cost_produk`, `price_produk`, `alert_quantity`, `image_produk`, `id_kategori`, `id_unit`, `id_brand`) VALUES
 	(2, 'Radio', 'Size', 1000, 25000, 2, '', 2, 1, 2);
+INSERT INTO `tbl_produk` (`id_produk`, `nama_produk`, `size_produk`, `cost_produk`, `price_produk`, `alert_quantity`, `image_produk`, `id_kategori`, `id_unit`, `id_brand`) VALUES
+	(3, 'PS3', 'Size', 1000, 25000, 2, '.jpg', 2, 1, 2);
 /*!40000 ALTER TABLE `tbl_produk` ENABLE KEYS */;
 
 
@@ -178,22 +174,20 @@ CREATE TABLE IF NOT EXISTS `tbl_rfq` (
   `id_perusahaan` int(11) NOT NULL,
   `id_customer` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_rfq`),
-  KEY `id_supplier` (`id_supplier`),
-  KEY `id_user` (`id_user`),
-  KEY `id_perusahaan` (`id_perusahaan`),
-  KEY `id_customer` (`id_customer`),
-  CONSTRAINT `tbl_rfq_ibfk_1` FOREIGN KEY (`id_supplier`) REFERENCES `tbl_supplier` (`id_supplier`),
-  CONSTRAINT `tbl_rfq_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `tbl_user` (`id_user`),
-  CONSTRAINT `tbl_rfq_ibfk_3` FOREIGN KEY (`id_perusahaan`) REFERENCES `tbl_perusahaan` (`id_perusahaan`),
-  CONSTRAINT `tbl_rfq_ibfk_4` FOREIGN KEY (`id_customer`) REFERENCES `tbl_customer` (`id_customer`)
+  KEY `tbl_rfq_ibfk_1` (`id_supplier`),
+  KEY `tbl_rfq_ibfk_2` (`id_user`),
+  KEY `tbl_rfq_ibfk_3` (`id_perusahaan`),
+  KEY `tbl_rfq_ibfk_4` (`id_customer`),
+  CONSTRAINT `tbl_rfq_ibfk_1` FOREIGN KEY (`id_supplier`) REFERENCES `tbl_supplier` (`id_supplier`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tbl_rfq_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `tbl_user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tbl_rfq_ibfk_3` FOREIGN KEY (`id_perusahaan`) REFERENCES `tbl_perusahaan` (`id_perusahaan`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tbl_rfq_ibfk_4` FOREIGN KEY (`id_customer`) REFERENCES `tbl_customer` (`id_customer`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table pos.tbl_rfq: ~1 rows (approximately)
+-- Dumping data for table pos.tbl_rfq: ~2 rows (approximately)
 /*!40000 ALTER TABLE `tbl_rfq` DISABLE KEYS */;
 INSERT INTO `tbl_rfq` (`id_rfq`, `tanggal_rfq`, `alamat_pengiriman_rfq`, `tax_rfq`, `jenis_rfq`, `id_supplier`, `id_user`, `id_perusahaan`, `id_customer`) VALUES
-	(1, '2020-11-25', 'Alamat 2', 10, 0, NULL, 2, 1, 1);
-INSERT INTO `tbl_rfq` (`id_rfq`, `tanggal_rfq`, `alamat_pengiriman_rfq`, `tax_rfq`, `jenis_rfq`, `id_supplier`, `id_user`, `id_perusahaan`, `id_customer`) VALUES
-	(2, '2020-11-28', 'Tests', 5, 1, 1, 2, 1, NULL);
+	(1, '2020-12-02', 'Test', 0, 1, 1, 1, 1, NULL);
 /*!40000 ALTER TABLE `tbl_rfq` ENABLE KEYS */;
 
 
@@ -206,24 +200,18 @@ CREATE TABLE IF NOT EXISTS `tbl_rfq_detail` (
   `id_rfq` int(11) NOT NULL,
   `id_produk` int(11) NOT NULL,
   PRIMARY KEY (`id_rfq_detail`),
-  KEY `id_rfq` (`id_rfq`),
-  KEY `id_produk` (`id_produk`),
-  CONSTRAINT `tbl_rfq_detail_ibfk_1` FOREIGN KEY (`id_rfq`) REFERENCES `tbl_rfq` (`id_rfq`),
-  CONSTRAINT `tbl_rfq_detail_ibfk_2` FOREIGN KEY (`id_produk`) REFERENCES `tbl_produk` (`id_produk`)
+  KEY `tbl_rfq_detail_ibfk_1` (`id_rfq`),
+  KEY `tbl_rfq_detail_ibfk_2` (`id_produk`),
+  CONSTRAINT `tbl_rfq_detail_ibfk_1` FOREIGN KEY (`id_rfq`) REFERENCES `tbl_rfq` (`id_rfq`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tbl_rfq_detail_ibfk_2` FOREIGN KEY (`id_produk`) REFERENCES `tbl_produk` (`id_produk`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table pos.tbl_rfq_detail: ~3 rows (approximately)
+-- Dumping data for table pos.tbl_rfq_detail: ~5 rows (approximately)
 /*!40000 ALTER TABLE `tbl_rfq_detail` DISABLE KEYS */;
 INSERT INTO `tbl_rfq_detail` (`id_rfq_detail`, `harga_rfq_detail`, `qty_rfq_detail`, `disc_rfq_detail`, `id_rfq`, `id_produk`) VALUES
-	(1, 10000, 4, 10, 1, 2);
+	(1, 11, 25, 0, 1, 2);
 INSERT INTO `tbl_rfq_detail` (`id_rfq_detail`, `harga_rfq_detail`, `qty_rfq_detail`, `disc_rfq_detail`, `id_rfq`, `id_produk`) VALUES
-	(2, 20000, 2, 0, 1, 1);
-INSERT INTO `tbl_rfq_detail` (`id_rfq_detail`, `harga_rfq_detail`, `qty_rfq_detail`, `disc_rfq_detail`, `id_rfq`, `id_produk`) VALUES
-	(3, 15, 15, 15, 1, 1);
-INSERT INTO `tbl_rfq_detail` (`id_rfq_detail`, `harga_rfq_detail`, `qty_rfq_detail`, `disc_rfq_detail`, `id_rfq`, `id_produk`) VALUES
-	(4, 123, 2, 5, 2, 1);
-INSERT INTO `tbl_rfq_detail` (`id_rfq_detail`, `harga_rfq_detail`, `qty_rfq_detail`, `disc_rfq_detail`, `id_rfq`, `id_produk`) VALUES
-	(5, 45, 0, 0, 2, 2);
+	(2, 12, 12, 0, 1, 2);
 /*!40000 ALTER TABLE `tbl_rfq_detail` ENABLE KEYS */;
 
 
@@ -238,7 +226,7 @@ CREATE TABLE IF NOT EXISTS `tbl_supplier` (
   PRIMARY KEY (`id_supplier`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table pos.tbl_supplier: ~1 rows (approximately)
+-- Dumping data for table pos.tbl_supplier: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tbl_supplier` DISABLE KEYS */;
 INSERT INTO `tbl_supplier` (`id_supplier`, `nama_supplier`, `npwp_supplier`, `alamat_supplier`, `no_telp_supplier`, `email_supplier`) VALUES
 	(1, 'PT ABCs', '1234567', 'Alamat', '1245', 'supplier@example.com');
@@ -252,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `tbl_unit` (
   PRIMARY KEY (`id_unit`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table pos.tbl_unit: ~1 rows (approximately)
+-- Dumping data for table pos.tbl_unit: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tbl_unit` DISABLE KEYS */;
 INSERT INTO `tbl_unit` (`id_unit`, `nama_unit`) VALUES
 	(1, 'Unit');
@@ -273,7 +261,7 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table pos.tbl_user: ~2 rows (approximately)
+-- Dumping data for table pos.tbl_user: ~3 rows (approximately)
 /*!40000 ALTER TABLE `tbl_user` DISABLE KEYS */;
 INSERT INTO `tbl_user` (`id_user`, `nama_user`, `username`, `password`, `jabatan_user`, `alamat_user`, `no_telp_user`, `email_user`) VALUES
 	(1, 'Admin', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Administrator', 'Pekanbaru', '123', 'admin@admin.com');
@@ -286,18 +274,44 @@ INSERT INTO `tbl_user` (`id_user`, `nama_user`, `username`, `password`, `jabatan
 CREATE TABLE IF NOT EXISTS `tbl_warehouse` (
   `id_warehouse` int(11) NOT NULL,
   `tanggal_warehouse` date NOT NULL,
-  `id_po` int(11) NOT NULL,
+  `upload_warehouse` varchar(100) NOT NULL,
   `id_user` int(11) NOT NULL,
   PRIMARY KEY (`id_warehouse`),
-  KEY `id_po` (`id_po`),
-  KEY `id_user` (`id_user`),
-  CONSTRAINT `tbl_warehouse_ibfk_1` FOREIGN KEY (`id_po`) REFERENCES `tbl_po` (`id_po`),
-  CONSTRAINT `tbl_warehouse_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `tbl_user` (`id_user`)
+  KEY `tbl_warehouse_ibfk_2` (`id_user`),
+  CONSTRAINT `tbl_warehouse_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `tbl_user` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table pos.tbl_warehouse: ~0 rows (approximately)
 /*!40000 ALTER TABLE `tbl_warehouse` DISABLE KEYS */;
+INSERT INTO `tbl_warehouse` (`id_warehouse`, `tanggal_warehouse`, `upload_warehouse`, `id_user`) VALUES
+	(1, '2020-12-02', '1606882300dacfad0ca86ac0ec30befe55e3430fde.png', 2);
+INSERT INTO `tbl_warehouse` (`id_warehouse`, `tanggal_warehouse`, `upload_warehouse`, `id_user`) VALUES
+	(2, '2020-12-02', '', 1);
+INSERT INTO `tbl_warehouse` (`id_warehouse`, `tanggal_warehouse`, `upload_warehouse`, `id_user`) VALUES
+	(3, '2020-12-02', '', 1);
 /*!40000 ALTER TABLE `tbl_warehouse` ENABLE KEYS */;
+
+
+-- Dumping structure for table pos.tbl_warehouse_detail
+CREATE TABLE IF NOT EXISTS `tbl_warehouse_detail` (
+  `id_warehouse_detail` int(11) NOT NULL,
+  `qty_warehouse_detail` int(11) NOT NULL DEFAULT 0,
+  `id_po_detail` int(11) NOT NULL,
+  `id_warehouse` int(11) NOT NULL,
+  PRIMARY KEY (`id_warehouse_detail`),
+  KEY `tbl_warehouse_detail_ibfk_1` (`id_warehouse`),
+  KEY `tbl_warehouse_detail_ibfk_2` (`id_po_detail`),
+  CONSTRAINT `tbl_warehouse_detail_ibfk_1` FOREIGN KEY (`id_warehouse`) REFERENCES `tbl_warehouse` (`id_warehouse`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tbl_warehouse_detail_ibfk_2` FOREIGN KEY (`id_po_detail`) REFERENCES `tbl_po_detail` (`id_po_detail`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Dumping data for table pos.tbl_warehouse_detail: ~0 rows (approximately)
+/*!40000 ALTER TABLE `tbl_warehouse_detail` DISABLE KEYS */;
+INSERT INTO `tbl_warehouse_detail` (`id_warehouse_detail`, `qty_warehouse_detail`, `id_po_detail`, `id_warehouse`) VALUES
+	(1, 25, 1, 3);
+INSERT INTO `tbl_warehouse_detail` (`id_warehouse_detail`, `qty_warehouse_detail`, `id_po_detail`, `id_warehouse`) VALUES
+	(2, 12, 2, 3);
+/*!40000 ALTER TABLE `tbl_warehouse_detail` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

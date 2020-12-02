@@ -22,12 +22,12 @@
 						<label>RFQ</label>
 						<select name="id_rfq" class="form-control" data-placeholder="Pilih RFQ" onchange="location = '<?php echo base_url();?>so/so_tambah/'+this.value;" required >
 							<?php if($this->uri->segment(3)!=''){
-								echo "<option value='$tbl_rfq_by->id_rfq'>$tbl_rfq_by->nama_customer</option>";
+								echo "<option value='$tbl_rfq_by->id_rfq'>$tbl_rfq_by->id_rfq $tbl_rfq_by->nama_customer</option>";
 							}else{
 								echo "<option>Pilih RFQ</option>";
 							} ?>
 							<?php foreach($tbl_rfq as $rfq){?>
-								<option value="<?php echo $rfq->id_rfq;?>"><?php echo $rfq->nama_customer;?></option>
+								<option value="<?php echo $rfq->id_rfq;?>"><?php echo $rfq->id_rfq;?> <?php echo $rfq->nama_customer;?></option>
 							<?php } ?>
 						</select>
 					  </div>
@@ -37,7 +37,7 @@
 							<?php if($this->uri->segment(3)!=''){
 								echo "<option value='$tbl_rfq_by->pajak;'>$tbl_rfq_by->tax_rfq</option>";
 							}else{
-								echo "<option>Pilih RFQ</option>";
+								echo "<option>Pilih Tax</option>";
 							}?>
 							<option value="0">Tanpa Tax</option>
 							<option value="5">5%</option>
@@ -92,7 +92,7 @@
 											foreach($tbl_rfq_detail as $detail){ ?>
 												<tr id='tambahproduklainnyadiv<?php echo $x;?>' >
 													<td>
-														<select data-placeholder='Jenis Biaya' class='form-control' id='id_produk<?php echo $x;?>' name='id_produk[]' style='width: 100%;' >
+														<select class='form-control' id='id_produk<?php echo $x;?>' name='id_produk[]' style='width: 100%;' >
 																<option value='<?php echo $detail->id_produk;?>'> <?php echo $detail->nama_produk;?></option>
 														</select>
 													</td>

@@ -28,6 +28,7 @@
   </header>
   <?php
   $geturl = $this->uri->segment(1);
+  $geturl2 = $this->uri->segment(2);
   $beranda = "";
   $kategori = "";
   $brand = "";
@@ -99,6 +100,24 @@
   if(strpos($geturl, "po")!== FALSE){
 	  $po = "active";
 	  $purchase = "active";
+  }
+  
+  $warehouse_masuk = "";
+  $warehouse_keluar = "";
+  $stockopname = "";
+  $warehouse = "";
+  
+  if(strpos($geturl2, "barang_masuk")!== FALSE){
+	  $warehouse_masuk = "active";
+	  $warehouse = "active";
+  }
+  if(strpos($geturl2, "barang_keluar")!== FALSE){
+	  $warehouse_keluar = "active";
+	  $warehouse = "active";
+  }
+  if(strpos($geturl, "stockopname")!== FALSE){
+	  $stockopname = "active";
+	  $warehouse = "active";
   }
   
   ?>
@@ -196,6 +215,31 @@
             <li class="<?php echo $po;?>">
 				<a href="<?php echo base_url(); ?>po">
 					<i class="fa fa-circle-o"></i> PO
+				</a>
+			</li>
+          </ul>
+		</li>
+		<li class="<?php echo $warehouse;?> treeview">
+          <a href="#">
+            <i class="fa fa-bank"></i> <span>Warehouse</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="<?php echo $warehouse_masuk;?>">
+				<a href="<?php echo base_url(); ?>warehouse/barang_masuk">
+					<i class="fa fa-circle-o"></i> Barang Masuk
+				</a>
+			</li>
+            <li class="<?php echo $warehouse_keluar;?>">
+				<a href="<?php echo base_url(); ?>warehouse/barang_keluar">
+					<i class="fa fa-circle-o"></i> Barang Keluar
+				</a>
+			</li>
+            <li class="<?php echo $stockopname;?>">
+				<a href="<?php echo base_url(); ?>stockopname">
+					<i class="fa fa-circle-o"></i> Stock Opname
 				</a>
 			</li>
           </ul>

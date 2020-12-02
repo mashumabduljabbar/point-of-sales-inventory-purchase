@@ -44,7 +44,7 @@
 						<label>Image Produk</label>
 						<input type="file" onchange="readURL(this);"  class="form-control" name="userfiles" >
 						<input type="hidden" name="image_produk" value="<?php echo $tbl_produk->image_produk; ?>">
-						<img width="220px" class="img img-responsive user-image" id="blah" src="<?php echo base_url();?>assets/dist/img/produk/<?php echo $tbl_produk->image_produk."?".strtotime("now");?>">
+						<img alt="" width="220px" class="img img-responsive user-image" id="blah" src="<?php echo base_url();?>assets/dist/img/produk/<?php echo $tbl_produk->image_produk."?".strtotime("now");?>">
 					  </div>
 					</div>
 					<div class="col-md-4">
