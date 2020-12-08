@@ -9,6 +9,9 @@ class Warehouse extends CI_Controller {
 		}
 		date_default_timezone_set("Asia/Bangkok");
 		$this->load->model('m_general');
+		$this->db->query("DELETE FROM tbl_warehouse where id_warehouse IN (select a.id_warehouse from tbl_warehouse a 
+left join tbl_warehouse_detail b on a.id_warehouse=b.id_warehouse
+where b.id_warehouse IS NULL)");
 	}
 	
 	////////////////////////////////////

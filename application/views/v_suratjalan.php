@@ -1,7 +1,7 @@
   <div class="content-wrapper ">
     <section class="content-header">
       <h3>
-        Barang Keluar
+        Surat Jalan
       </h3>
     </section>
     <!-- Main content -->
@@ -13,7 +13,7 @@
 				<div class="box-header">
 					<h3 class="box-title">
 					<label>
-					<a class="btn-sm btn-primary" href="<?php echo base_url("warehouse/barang_keluar_tambah");?>"><i class="fa fa-plus"></i> <span>Tambah Barang Keluar</span></a>
+					<a class="btn-sm btn-primary" href="<?php echo base_url("suratjalan/suratjalan_tambah");?>"><i class="fa fa-plus"></i> <span>Tambah Surat Jalan</span></a>
 					</label>
 					</h3>
 				</div>
@@ -22,11 +22,9 @@
 					<thead>
 					<tr>
 						<th>ID</th>
-						<th>Tanggal</th>
-						<th>Document</th>
-						<th>ID SO</th>
-						<th>Customer</th>
-						<th>Petugas</th>
+						<th>Tanggal Pengiriman</th>
+						<th>Kurir</th>
+						<th>ID Barang Keluar</th>
 						<th width="150px"> Action</th>
 					</tr>
 					</thead>
@@ -52,23 +50,12 @@ var myTable =  $('#datatable').DataTable({
 			"paging": true,
 			"info": true,
 			'order': [[0, 'asc']],
-			"ajax": "<?php echo base_url('warehouse/get_data_master_barang_keluar/');?>" ,
+			"ajax": "<?php echo base_url('suratjalan/get_data_master_suratjalan/');?>" ,
 			columnDefs: [{
-				   targets: [2],
+				   targets: [4],
 				   data: null,
 				   render: function ( data, type, row, meta ) {                   
-					if(row[2]!=''){
-						return "<a  title='Document' href='<?php echo base_url();?>assets/dist/img/warehouse/"+row[2]+"'> <button type='button' class='btn btn-xs btn-info'><i class='fa fa-file-pdf-o'></i> </button></a> ";
-					}else{
-						return "";
-					}
-					
-				   }
-				},{
-				   targets: [6],
-				   data: null,
-				   render: function ( data, type, row, meta ) {                   
-					return "<a  title='Detail' href='<?php echo base_url();?>warehouse/barang_keluar_detail/"+row[0]+"'> <button type='button' class='btn btn-xs btn-info'><i class='fa fa-eye'></i> </button></a> <a  title='Ubah' href='<?php echo base_url();?>warehouse/barang_keluar_ubah/"+row[0]+"'> <button type='button' class='btn btn-xs btn-warning'><i class='fa fa-pencil'></i> </button></a> <a title='Hapus' onclick=\"return confirm('Yakin untuk menghapus Barang Keluar ini ?')\" href='<?php echo base_url();?>warehouse/barang_keluar_aksi_hapus/"+row[0]+"'> <button type='button' class='btn btn-xs btn-danger'><i class='fa fa-trash'></i> </button></a>";
+					return "<a  title='Document' href='<?php echo base_url();?>suratjalan/suratjalan_detail/"+row[0]+"'>  <button type='button' class='btn btn-xs btn-info'><i class='fa fa-file-pdf-o'></i> </button></a> <a  title='Ubah' href='<?php echo base_url();?>suratjalan/suratjalan_ubah/"+row[0]+"'> <button type='button' class='btn btn-xs btn-warning'><i class='fa fa-pencil'></i> </button></a> <a title='Hapus' onclick=\"return confirm('Yakin untuk menghapus Barang Keluar ini ?')\" href='<?php echo base_url();?>suratjalan/suratjalan_aksi_hapus/"+row[0]+"'> <button type='button' class='btn btn-xs btn-danger'><i class='fa fa-trash'></i> </button></a>";
 				   }
 				},],
 		});

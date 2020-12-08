@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 include APPPATH . 'third_party/ssp.php';
-class Stockopname extends CI_Controller {
+class Stockcard extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		if($this->session->userdata('status') != "login"){
@@ -16,7 +16,7 @@ class Stockopname extends CI_Controller {
 	public function index()
     {
 		$this->load->view("v_admin_header");
-        $this->load->view("v_stockopname");
+        $this->load->view("v_stockcard");
         $this->load->view("v_admin_footer");
     }
 
@@ -24,43 +24,11 @@ class Stockopname extends CI_Controller {
 	
 	////////////////////////////////////
 	
-	public function get_data_master_stockopname()
+	public function get_data_master_stockcard()
 	{
 		$table = "
         (
-            select tablex.id_produk, tablex.nama_produk, tablex.sisa as sistem, tabley.sisa as sebenarnya
-from (select table3.id_produk, table3.nama_produk, IFNULL(table4.sisa,0) as sisa from tbl_produk table3
-left join 
-(select table1.id_produk, table1.nama_produk,  table1.qty_po_detail-table2.qty_po_detail as sisa
-from (select d.id_produk, d.nama_produk, a.qty_po_detail from tbl_po_detail a
-join tbl_po b on a.id_po=b.id_po
-join tbl_rfq c on b.id_rfq=c.id_rfq
-join tbl_produk d on d.id_produk=a.id_produk
-where c.jenis_rfq='1') as table1
-left join 
-(select d.id_produk, d.nama_produk, a.qty_po_detail from tbl_po_detail a
-join tbl_po b on a.id_po=b.id_po
-join tbl_rfq c on b.id_rfq=c.id_rfq
-join tbl_produk d on d.id_produk=a.id_produk
-where c.jenis_rfq='0') as table2
-on table1.id_produk=table2.id_produk
-UNION
-select table1.id_produk, table1.nama_produk,  table1.qty_po_detail-table2.qty_po_detail as sisa
-from (select d.id_produk, d.nama_produk, a.qty_po_detail from tbl_po_detail a
-join tbl_po b on a.id_po=b.id_po
-join tbl_rfq c on b.id_rfq=c.id_rfq
-join tbl_produk d on d.id_produk=a.id_produk
-where c.jenis_rfq='1') as table1
-right join 
-(select d.id_produk, d.nama_produk, a.qty_po_detail from tbl_po_detail a
-join tbl_po b on a.id_po=b.id_po
-join tbl_rfq c on b.id_rfq=c.id_rfq
-join tbl_produk d on d.id_produk=a.id_produk
-where c.jenis_rfq='0') as table2
-on table1.id_produk=table2.id_produk) as table4
-on table3.id_produk=table4.id_produk) as tablex
-left join 
-(SELECT table4.id_produk, table4.nama_produk, 
+              SELECT table4.id_produk, table4.nama_produk, 
 IFNULL(table3.jumlah_masuk,0) as jumlah_masuk, IFNULL(table3.jumlah_keluar,0) as jumlah_keluar, IFNULL(table3.sisa,0) as sisa
 FROM (SELECT table1.id_produk, IFNULL(table2.nama_produk,table1.nama_produk) as nama_produk, 
 @masuk := IFNULL(table2.jumlah,0) as jumlah_masuk,
@@ -107,16 +75,16 @@ join tbl_rfq d on d.id_rfq=c.id_rfq
 where d.jenis_rfq='1'
 group by e.id_produk) as table2
 ON table1.id_produk=table2.id_produk) as table3
-RIGHT JOIN tbl_produk table4 ON table3.id_produk=table4.id_produk) as tabley
-on tablex.id_produk=tabley.id_produk
+RIGHT JOIN tbl_produk table4 ON table3.id_produk=table4.id_produk 
         )temp";
 		
         $primaryKey = 'id_produk';
         $columns = array(
         array( 'db' => 'id_produk',     'dt' => 0 ),
         array( 'db' => 'nama_produk',        'dt' => 1 ),
-        array( 'db' => 'sistem',        'dt' => 2 ),
-        array( 'db' => 'sebenarnya',        'dt' => 3 ),
+        array( 'db' => 'jumlah_masuk',        'dt' => 2 ),
+        array( 'db' => 'jumlah_keluar',        'dt' => 3 ),
+        array( 'db' => 'sisa',        'dt' => 4 ),
         );
 
         $sql_details = array(

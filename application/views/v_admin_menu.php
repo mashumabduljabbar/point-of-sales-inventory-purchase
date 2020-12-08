@@ -104,6 +104,7 @@
   
   $warehouse_masuk = "";
   $warehouse_keluar = "";
+  $suratjalan = "";
   $stockopname = "";
   $warehouse = "";
   
@@ -115,10 +116,53 @@
 	  $warehouse_keluar = "active";
 	  $warehouse = "active";
   }
+  if(strpos($geturl, "suratjalan")!== FALSE){
+	  $suratjalan = "active";
+	  $warehouse = "active";
+  }
   if(strpos($geturl, "stockopname")!== FALSE){
 	  $stockopname = "active";
 	  $warehouse = "active";
   }
+  
+  $stockcard = "";
+  $report = "";
+  $laporanpembelian = "";
+  $laporanpenjualan = "";
+  $laporanbarangmasuk = "";
+  $laporanbarangkeluar = "";
+  
+  if(strpos($geturl, "stockcard")!== FALSE){
+	  $stockcard = "active";
+	  $report = "active";
+  }
+  if(strpos($geturl2, "laporanpembelian")!== FALSE){
+	  $report = "active";
+	  $purchase = "";
+	  $laporanpembelian = "active";
+  }
+  if(strpos($geturl2, "laporanpenjualan")!== FALSE){
+	  $report = "active";
+	  $purchase = "";
+	  $laporanpenjualan = "active";
+  }
+  if(strpos($geturl2, "laporanbarangmasuk")!== FALSE){
+	  $report = "active";
+	  $purchase = "";
+	  $laporanbarangmasuk = "active";
+  }
+  if(strpos($geturl2, "laporanbarangkeluar")!== FALSE){
+	  $report = "active";
+	  $purchase = "";
+	  $laporanbarangkeluar = "active";
+  }
+  
+  
+  //laporan penjualan (ada pilihan periode)
+  //laporan pembelian (ada pilihan periode)
+  // laporan barang_masuk
+  // laporan barang_keluar
+  // stockopname
   
   ?>
   <aside class="main-sidebar">
@@ -237,9 +281,50 @@
 					<i class="fa fa-circle-o"></i> Barang Keluar
 				</a>
 			</li>
+            <li class="<?php echo $suratjalan;?>">
+				<a href="<?php echo base_url(); ?>suratjalan">
+					<i class="fa fa-circle-o"></i> Surat Jalan
+				</a>
+			</li>
             <li class="<?php echo $stockopname;?>">
 				<a href="<?php echo base_url(); ?>stockopname">
 					<i class="fa fa-circle-o"></i> Stock Opname
+				</a>
+			</li>
+          </ul>
+		</li>
+		
+		<li class="<?php echo $report;?> treeview">
+          <a href="#">
+            <i class="fa fa-file-o"></i> <span>Report</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="<?php echo $laporanpembelian;?>">
+				<a href="<?php echo base_url(); ?>report/laporanpembelian">
+					<i class="fa fa-circle-o"></i> Laporan Pembelian
+				</a>
+			</li>
+            <li class="<?php echo $laporanpenjualan;?>">
+				<a href="<?php echo base_url(); ?>report/laporanpenjualan">
+					<i class="fa fa-circle-o"></i> Laporan Penjualan
+				</a>
+			</li>
+            <li class="<?php echo $laporanbarangmasuk;?>">
+				<a href="<?php echo base_url(); ?>report/laporanbarangmasuk">
+					<i class="fa fa-circle-o"></i> Laporan Barang Masuk
+				</a>
+			</li>
+            <li class="<?php echo $laporanbarangkeluar;?>">
+				<a href="<?php echo base_url(); ?>report/laporanbarangkeluar">
+					<i class="fa fa-circle-o"></i> Laporan Barang Keluar
+				</a>
+			</li>
+            <li class="<?php echo $stockcard;?>">
+				<a href="<?php echo base_url(); ?>stockcard">
+					<i class="fa fa-circle-o"></i> Stock Card
 				</a>
 			</li>
           </ul>

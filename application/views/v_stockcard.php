@@ -8,7 +8,7 @@
 				<!-- /.box-header -->
 				<div class="box-header">
 					<h3 style="text-align: center;">
-						Stock Opname
+						Stock Card
 					</h3>
 				</div>
 				<div class="box-body">
@@ -17,8 +17,9 @@
 					<tr>
 						<th>ID</th>
 						<th>Nama Produk</th>
-						<th>Jumlah di Sistem</th>
-						<th>Jumlah Sebenarnya</th>
+						<th>Jumlah Masuk</th>
+						<th>Jumlah Keluar</th>
+						<th>Sisa</th>
 					</tr>
 					</thead>
 					<tbody>
@@ -54,7 +55,7 @@ var myTable =  $('#datatable').DataTable({
 			"paging":   false,
 			"ordering": false,
 			'order': [[0, 'asc']],
-			"ajax": "<?php echo base_url('stockopname/get_data_master_stockopname/');?>" ,
+			"ajax": "<?php echo base_url('stockcard/get_data_master_stockcard/');?>" ,
 			aLengthMenu: [
 				[25, 50, 100, 200, -1],
 				[25, 50, 100, 200, "All"]
