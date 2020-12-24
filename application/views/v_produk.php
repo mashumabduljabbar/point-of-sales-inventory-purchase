@@ -26,10 +26,11 @@
 						<th>Size</th>
 						<th>Cost</th>
 						<th>Price</th>
-						<th>Alert</th>
+						<th>Stock</th>
 						<th>Kategori</th>
 						<th>Brand</th>
 						<th>Unit</th>
+						<th>Foto</th>
 						<th width="150px"> Action</th>
 					</tr>
 					</thead>
@@ -60,7 +61,13 @@ var myTable =  $('#datatable').DataTable({
 				   targets: [9],
 				   data: null,
 				   render: function ( data, type, row, meta ) {                   
-					return "<a href='<?php echo base_url();?>produk/produk_ubah/"+row[9]+"'> <button type='button' class='btn btn-xs btn-warning'><i class='fa fa-pencil'></i> Ubah</button></a> <a onclick=\"return confirm('Yakin untuk menghapus produk ini ?')\" href='<?php echo base_url();?>produk/produk_aksi_hapus/"+row[9]+"'> <button type='button' class='btn btn-xs btn-danger'><i class='fa fa-trash'></i> Hapus</button></a>";
+					return "<a alt='' target='_blank' href='<?php echo base_url();?>assets/dist/img/produk/"+row[9]+"'><img alt='' height='30px' width='30px' src='<?php echo base_url();?>assets/dist/img/produk/"+row[9]+"'></a>";
+				   }
+				},{
+				   targets: [10],
+				   data: null,
+				   render: function ( data, type, row, meta ) {                   
+					return "<a href='<?php echo base_url();?>produk/produk_ubah/"+row[10]+"'> <button type='button' class='btn btn-xs btn-warning'><i class='fa fa-pencil'></i> Ubah</button></a> <a onclick=\"return confirm('Yakin untuk menghapus produk ini ?')\" href='<?php echo base_url();?>produk/produk_aksi_hapus/"+row[10]+"'> <button type='button' class='btn btn-xs btn-danger'><i class='fa fa-trash'></i> Hapus</button></a>";
 				   }
 				},],
 		});

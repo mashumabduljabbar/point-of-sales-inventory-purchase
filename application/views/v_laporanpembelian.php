@@ -22,30 +22,39 @@
 				</div>
 			</div>
 			<div class="col-md-12">
-				<div id="printableArea">
-					<div class="box">
-					<!-- /.box-header -->
-					<div class="box-header">
-						<h3 style="text-align: center;">
-							Laporan Pembelian
-						</h3>
-					</div>
-					<div class="box-body">
-					<table id="datatable" class="table table-bordered table-striped display responsive nowrap" cellspacing="0" width="100%">
-						<thead>
-						<tr>
-							<th>Tanggal Pembelian</th>
-							<th>Nama Produk</th>
-							<th>Jumlah Produk</th>
-							<th>Supplier</th>
-						</tr>
-						</thead>
-						<tbody>
-						</tbody>
-					  </table>
-					</div>
-					<!-- /.box-body -->
-				  </div>
+				<div class="box">
+					<div id="printableArea">
+						<img src="<?php echo base_url();?>assets/dist/img/domas.png?<?php echo strtotime("now");?>" height="50px">
+						<!-- /.box-header -->
+						<div class="box-header">
+							<h4 style="text-align: center;">
+								Laporan Pembelian<br>
+								Periode : <?php if($this->uri->segment(3)!=''){ echo $periode; };?>
+							</h4>
+						</div>
+						<div class="box-body">
+						<table id="datatable" class="table table-bordered table-striped display responsive nowrap" cellspacing="0" width="100%">
+							<thead>
+							<tr>
+								<th>Tanggal Pembelian</th>
+								<th>Supplier</th>
+								<th>Nama Produk</th>
+								<th>Jumlah Produk</th>
+								<th>Sub Total</th>
+							</tr>
+							</thead>
+							<tbody>
+							</tbody>
+							<tfoot>
+							<tr>
+								<th colspan="4" style="text-align:right;">Total Pembelian</th>
+								<th><?php echo number_format($total->total);?></th>
+							</tr>
+							</tfoot>
+						  </table>
+						</div>
+						<!-- /.box-body -->
+					  </div>
 				</div>
 			</div>
 			<div class="col-md-12">

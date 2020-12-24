@@ -28,13 +28,48 @@ class Produk extends CI_Controller {
 	{
 		$table = "
         (
-            SELECT
-                a.*, b.nama_kategori, c.nama_brand, d.nama_unit
+            SELECT khalid.*, IFNULL(ibrahim.stock,0) as stock FROM (SELECT
+                a.*, CASE
+					WHEN image_produk='' OR image_produk IS NULL THEN 'default.jpg'
+					ELSE image_produk
+				END as imageproduk, b.nama_kategori, c.nama_brand, d.nama_unit
             FROM
                 tbl_produk a
 				join tbl_kategori b on a.id_kategori=b.id_kategori
 				join tbl_brand c on a.id_brand=c.id_brand
-				join tbl_unit d on a.id_unit=d.id_unit
+				join tbl_unit d on a.id_unit=d.id_unit) as khalid
+left join (select tablex.id_produk, tablex.sisa as stock
+from (select table3.id_produk, IFNULL(table4.sisa,0) as sisa from tbl_produk table3
+left join 
+(select table1.id_produk, table1.qty_po_detail-table2.qty_po_detail as sisa
+from (select d.id_produk, a.qty_po_detail from tbl_po_detail a
+join tbl_po b on a.id_po=b.id_po
+join tbl_rfq c on b.id_rfq=c.id_rfq
+join tbl_produk d on d.id_produk=a.id_produk
+where c.jenis_rfq='1') as table1
+left join 
+(select d.id_produk, a.qty_po_detail from tbl_po_detail a
+join tbl_po b on a.id_po=b.id_po
+join tbl_rfq c on b.id_rfq=c.id_rfq
+join tbl_produk d on d.id_produk=a.id_produk
+where c.jenis_rfq='0') as table2
+on table1.id_produk=table2.id_produk
+UNION
+select table1.id_produk, table1.qty_po_detail-table2.qty_po_detail as sisa
+from (select d.id_produk, a.qty_po_detail from tbl_po_detail a
+join tbl_po b on a.id_po=b.id_po
+join tbl_rfq c on b.id_rfq=c.id_rfq
+join tbl_produk d on d.id_produk=a.id_produk
+where c.jenis_rfq='1') as table1
+right join 
+(select d.id_produk, a.qty_po_detail from tbl_po_detail a
+join tbl_po b on a.id_po=b.id_po
+join tbl_rfq c on b.id_rfq=c.id_rfq
+join tbl_produk d on d.id_produk=a.id_produk
+where c.jenis_rfq='0') as table2
+on table1.id_produk=table2.id_produk) as table4
+on table3.id_produk=table4.id_produk) as tablex) as ibrahim
+on khalid.id_produk=ibrahim.id_produk
         )temp";
 		
         $primaryKey = 'id_produk';
@@ -44,11 +79,12 @@ class Produk extends CI_Controller {
         array( 'db' => 'size_produk',        'dt' => 2 ),
         array( 'db' => 'cost_produk',        'dt' => 3 ),
         array( 'db' => 'price_produk',        'dt' => 4 ),
-        array( 'db' => 'alert_quantity',        'dt' => 5 ),
+        array( 'db' => 'stock',        'dt' => 5 ),
         array( 'db' => 'nama_kategori',        'dt' => 6 ),
         array( 'db' => 'nama_brand',        'dt' => 7 ),
         array( 'db' => 'nama_unit',        'dt' => 8 ),
-        array( 'db' => 'id_produk',     'dt' => 9 ),
+        array( 'db' => 'imageproduk',     'dt' => 9 ),
+        array( 'db' => 'id_produk',     'dt' => 10 ),
         );
 
         $sql_details = array(

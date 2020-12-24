@@ -22,14 +22,16 @@
 				</div>
 			</div>
 			<div class="col-md-12">
-				<div id="printableArea">
-					<div class="box">
-					<!-- /.box-header -->
-					<div class="box-header">
-						<h3 style="text-align: center;">
-							Laporan Barang Keluar
-						</h3>
-					</div>
+				<div class="box">
+					<div id="printableArea">
+						<img src="<?php echo base_url();?>assets/dist/img/domas.png?<?php echo strtotime("now");?>" height="50px">
+						<!-- /.box-header -->
+						<div class="box-header">
+							<h4 style="text-align: center;">
+								Laporan Barang Keluar<br>
+								Periode : <?php if($this->uri->segment(3)!=''){ echo $periode; };?>
+							</h4>
+						</div>
 					<div class="box-body">
 					<table id="datatable" class="table table-bordered table-striped display responsive nowrap" cellspacing="0" width="100%">
 						<thead>
