@@ -34,20 +34,18 @@ FROM (SELECT table1.id_produk, IFNULL(table2.nama_produk,table1.nama_produk) as 
 @masuk := IFNULL(table2.jumlah,0) as jumlah_masuk,
 @keluar := table1.jumlah as jumlah_keluar, 
 @sisa := ROUND(@masuk-@keluar,0) as sisa
-FROM (select e.id_produk, e.nama_produk, sum(a.qty_warehouse_detail) as jumlah
-from tbl_warehouse_detail a
-join tbl_po_detail b on a.id_po_detail=b.id_po_detail
-join tbl_produk e on e.id_produk=b.id_produk
-join tbl_po c on c.id_po=b.id_po
+FROM (select e.id_produk, e.nama_produk, sum(a.qty_po_detail) as jumlah
+from tbl_po_detail a
+join tbl_produk e on e.id_produk=a.id_produk
+join tbl_po c on c.id_po=a.id_po
 join tbl_rfq d on d.id_rfq=c.id_rfq
 where d.jenis_rfq='0'
 group by e.id_produk) as table1
 LEFT JOIN
-(select e.id_produk, e.nama_produk, sum(a.qty_warehouse_detail) as jumlah
-from tbl_warehouse_detail a
-join tbl_po_detail b on a.id_po_detail=b.id_po_detail
-join tbl_produk e on e.id_produk=b.id_produk
-join tbl_po c on c.id_po=b.id_po
+(select e.id_produk, e.nama_produk, sum(a.qty_po_detail) as jumlah
+from tbl_po_detail a
+join tbl_produk e on e.id_produk=a.id_produk
+join tbl_po c on c.id_po=a.id_po
 join tbl_rfq d on d.id_rfq=c.id_rfq
 where d.jenis_rfq='1'
 group by e.id_produk) as table2
@@ -57,20 +55,18 @@ SELECT table2.id_produk, IFNULL(table1.nama_produk,table2.nama_produk) as nama_p
 @masuk := table2.jumlah as jumlah_masuk,
 @keluar := IFNULL(table1.jumlah,0) as jumlah_keluar, 
 @sisa := ROUND(@masuk-@keluar,0) as sisa
-FROM (select e.id_produk, e.nama_produk, sum(a.qty_warehouse_detail) as jumlah
-from tbl_warehouse_detail a
-join tbl_po_detail b on a.id_po_detail=b.id_po_detail
-join tbl_produk e on e.id_produk=b.id_produk
-join tbl_po c on c.id_po=b.id_po
+FROM (select e.id_produk, e.nama_produk, sum(a.qty_po_detail) as jumlah
+from tbl_po_detail a
+join tbl_produk e on e.id_produk=a.id_produk
+join tbl_po c on c.id_po=a.id_po
 join tbl_rfq d on d.id_rfq=c.id_rfq
 where d.jenis_rfq='0'
 group by e.id_produk) as table1
 RIGHT JOIN
-(select e.id_produk, e.nama_produk, sum(a.qty_warehouse_detail) as jumlah
-from tbl_warehouse_detail a
-join tbl_po_detail b on a.id_po_detail=b.id_po_detail
-join tbl_produk e on e.id_produk=b.id_produk
-join tbl_po c on c.id_po=b.id_po
+(select e.id_produk, e.nama_produk, sum(a.qty_po_detail) as jumlah
+from tbl_po_detail a
+join tbl_produk e on e.id_produk=a.id_produk
+join tbl_po c on c.id_po=a.id_po
 join tbl_rfq d on d.id_rfq=c.id_rfq
 where d.jenis_rfq='1'
 group by e.id_produk) as table2
