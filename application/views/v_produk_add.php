@@ -37,10 +37,6 @@
 						<input type="number" class="form-control" name="price_produk" placeholder="Price Produk">
 					  </div>
 					  <div class="form-group">
-						<label>Alert Produk</label>
-						<input type="number" class="form-control" name="alert_quantity" placeholder="Alert Produk">
-					  </div>
-					  <div class="form-group">
 						<label>Image Produk</label>
 						<input type="file" onchange="readURL(this);"  class="form-control" name="userfiles" >
 						<img class="img img-responsive user-image" id="blah" >

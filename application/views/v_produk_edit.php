@@ -37,10 +37,6 @@
 						<input type="number" class="form-control" name="price_produk" placeholder="Price Produk" value="<?php echo $tbl_produk->price_produk;?>">
 					  </div>
 					  <div class="form-group">
-						<label>Alert Produk</label>
-						<input type="number" class="form-control" name="alert_quantity" placeholder="Alert Produk" value="<?php echo $tbl_produk->alert_quantity;?>">
-					  </div>
-					  <div class="form-group">
 						<label>Image Produk</label>
 						<input type="file" onchange="readURL(this);"  class="form-control" name="userfiles" >
 						<input type="hidden" name="image_produk" value="<?php echo $tbl_produk->image_produk; ?>">

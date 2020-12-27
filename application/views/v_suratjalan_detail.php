@@ -3,8 +3,10 @@
     <section class="content" >
       <div class="row">
 		<div class="col-xs-12">
-			<div id="printableArea">
 			<div class="box">
+					<div id="printableArea">
+						<img src="<?php echo base_url();?>assets/dist/img/domas.png?<?php echo strtotime("now");?>" height="50px">
+						
 				<div class="box-body">
 				  <div class="row">
 					<div class="col-md-12">
